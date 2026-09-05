@@ -1,0 +1,49 @@
+# Circles - Online Group Support
+
+> Circles (legal entity 7Chairs Ltd) is a consumer digital mental-health company running an
+> online emotional support platform at circlesup.com: live, facilitator-led audio and video
+> support groups plus peer chat for narcissistic abuse, toxic relationships, breakups,
+> divorce, grief, anxiety and stress. It is a direct-to-consumer subscription service
+> delivered through iOS and Android apps and a web app, not a developer platform.
+
+This file is an API Evangelist catalog artifact describing a company profile. It is NOT
+served by Circles and does not assert that Circles publishes an llms.txt.
+
+## Status: no public API surface
+
+As of 2026-09-05, Circles publishes no developer portal, no API reference, no SDK, and no
+machine-readable contract. The following were probed and all missed:
+
+- OpenAPI / Swagger on circlesup.com, app.circlesup.com and api.circlesup.com
+  (/openapi.json, /openapi.yaml, /swagger.json, /v1/openapi.json, /api-docs, /docs, /redoc)
+- GraphQL at /graphql on every host
+- MCP server and A2A agent card (/.well-known/agent-card.json, /.well-known/agent.json)
+- /llms.txt on every host
+- /.well-known/ discovery documents (see well-known/7chairs-well-known.yml)
+- Developer pages: https://circlesup.com/developers/ and https://circlesup.com/api/ are
+  soft-404s served by the WordPress catch-all
+
+api.circlesup.com exists in DNS but answers every request with an nginx HTTP 503 page. Any
+backend behind it serves the company's own mobile and web clients; it is not a documented,
+publicly consumable API and is not cataloged as one.
+
+## Company
+
+- Website: https://circlesup.com/
+- About: https://circlesup.com/about-us/
+- Blog: https://circlesup.com/blog/
+- Contact: https://circlesup.com/contact-us/
+- Careers: https://circlesup.com/careers/
+- Sign up: https://circlesup.typeform.com/to/e5q9ZYmq
+- Log in: https://circlesup.com/app/login
+- Terms of use: https://circlesup.com/terms-of-use/
+- Privacy: https://circlesup.com/privacy/
+- GitHub organization: https://github.com/7chairs (2 public repos, both forks of
+  react-native Zoom SDK wrappers, last updated 2021; no first-party SDK or API code)
+- Legal and policy resources (Notion-hosted): https://resources.circlesup.com/
+
+## Artifacts in this profile
+
+- security/7chairs-domain-security.yml - probed TLS, HSTS, DNSSEC, CAA, SPF and DMARC
+- well-known/7chairs-well-known.yml - probed /.well-known/ discovery documents
+- llms/7chairs-llms.txt - this file

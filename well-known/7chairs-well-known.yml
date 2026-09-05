@@ -1,0 +1,156 @@
+generated: '2026-09-05'
+method: probed
+source: >-
+  Live unauthenticated GET of the five named /.well-known/ paths against every host
+  this record knows: the registrable domain circlesup.com and its www alias, the web
+  app host app.circlesup.com, the API host api.circlesup.com, the Notion-hosted legal
+  resources host resources.circlesup.com, and the community host
+  expertscommunity.circlesup.com.
+note: >-
+  NO WellKnown or SecurityTxt pointer is emitted for this provider, and that is a
+  deliberate finding rather than an omission. Two distinct false positives were ruled
+  out. (1) circlesup.com is WordPress with a catch-all that answers HTTP 200 and an
+  HTML page for EVERY unknown path; a control probe of
+  https://circlesup.com/aeprobe-bogus-9271/ returned 200 with the same ~141KB shell
+  and the generic <title>Circlesup</title>, so each 200 below on that host is a
+  soft-404 and not a served document. app.circlesup.com behaves the same way, serving
+  its 4,545-byte single-page-app shell for every path. (2) resources.circlesup.com
+  DOES serve a real RFC 9116 security.txt at HTTP 200 with text/plain, but it is NOT
+  Circles' document: both its Contact and Policy fields resolve to
+  https://www.notion.so/Responsible-Disclosure-Policy-5f18bb6b86804eaf989c006131778b9c,
+  Notion's own responsible-disclosure policy, and the host is a Notion custom-domain
+  site (Notion set-cookie headers, Notion CSP). It is the Notion platform's
+  security.txt inherited by every Notion-hosted custom domain, so crediting Circles
+  with it would attribute another company's vulnerability-disclosure program to this
+  provider. The file is recorded here for provenance and deliberately NOT saved as
+  7chairs-security.txt.
+hosts:
+- host: circlesup.com
+  note: >-
+    WordPress catch-all; every 200 below is a soft-404 shell, confirmed against a
+    control path that does not exist.
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: null
+    note: soft-404 HTML shell, not a document
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: null
+    note: soft-404 HTML shell, not a document
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: null
+    note: soft-404 HTML shell, not a document
+  - path: /.well-known/api-catalog
+    status: 200
+    file: null
+    note: soft-404 HTML shell, not a document
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    file: null
+    note: soft-404 HTML shell, not a document
+- host: www.circlesup.com
+  note: 301 redirect alias of the apex domain.
+  documents:
+  - path: /.well-known/security.txt
+    status: 301
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 301
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 301
+    file: null
+  - path: /.well-known/api-catalog
+    status: 301
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 301
+    file: null
+- host: api.circlesup.com
+  note: >-
+    Host resolves in DNS but the edge answers every path, including the root, with a
+    564-byte nginx "503 Service Temporarily Unavailable" page.
+  documents:
+  - path: /.well-known/security.txt
+    status: 503
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 503
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 503
+    file: null
+  - path: /.well-known/api-catalog
+    status: 503
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 503
+    file: null
+- host: app.circlesup.com
+  note: Single-page app; returns its 4,545-byte HTML shell for every path.
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: null
+    note: SPA shell, not a document
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: null
+    note: SPA shell, not a document
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: null
+    note: SPA shell, not a document
+  - path: /.well-known/api-catalog
+    status: 200
+    file: null
+    note: SPA shell, not a document
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    file: null
+    note: SPA shell, not a document
+- host: resources.circlesup.com
+  note: >-
+    Notion-hosted custom domain carrying the Circles legal documents. Serves a real
+    security.txt that belongs to Notion, not Circles - see the top-level note. Honest
+    404s on everything else, confirmed against a control path.
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: null
+    owner: notion.so
+    note: >-
+      Real RFC 9116 document but third-party; Contact and Policy both point at
+      Notion's own responsible-disclosure policy. Not attributed to Circles.
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+- host: expertscommunity.circlesup.com
+  note: Honest 404s on every path.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
